@@ -320,7 +320,7 @@ impl PathI32 {
     }
 
     fn image_to_path_baseline(image: &BinaryImage, clockwise: bool) -> PathI32 {
-        let start = first_set_pixel(image);
+        let start = first_ink_pixel(image);
         let mut path = Vec::new();
         if let Some(start) = start {
             let walker = PathWalker::new(&image, start, clockwise);
@@ -335,7 +335,7 @@ impl PathI32 {
 ///
 /// This is the pixel `PathWalker` starts from, and it is always on the boundary of the
 /// shape: the pixel above it comes earlier in row-major order, so it has to be background.
-fn first_set_pixel(image: &BinaryImage) -> Option<PointI32> {
+fn first_ink_pixel(image: &BinaryImage) -> Option<PointI32> {
     let pixels = image.width * image.height;
     if pixels == 0 {
         return None;
